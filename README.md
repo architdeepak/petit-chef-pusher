@@ -1,29 +1,14 @@
 # Petit Chef Pusher
 
-EV3 MicroPython motor control and a companion PC video player for a Le Petit Chef-inspired dinner setup.
+An EV3 remote moves three motors and starts a video on a nearby PC. The brick runs Pybricks EV3 MicroPython. The PC player uses OpenCV, Pygame and FFpyPlayer.
 
-## EV3 controller
+Connect the motors to A, B and C and the infrared sensor to S1. Set `PC_IP` in `main.py` to the PC's local address, then run the script on the brick. On remote channel 1, Right Up moves A, Left Up moves B and Left Down moves C. Right Down tells the PC to start playback over UDP port 5555.
 
-`main.py` runs on an EV3 brick with Pybricks EV3 MicroPython, not desktop Python.
+On the PC, run:
 
-- Motors connect to ports A, B, and C.
-- An infrared sensor connects to S1 and listens on remote channel 1.
-- Right Up runs motor A forward and back.
-- Left Up runs motor B in reverse and back.
-- Left Down runs motor C forward and back.
-- Right Down sends `START_VIDEO` to the PC over UDP port 5555.
-
-Set `PC_IP` in `main.py` to the PC's local address. Review motor speed and duration constants for your mechanism and clear the mechanism before running it: this code physically moves motors.
-
-## PC video player
-
-Use desktop Python with the EV3 and PC on a network that allows UDP port 5555:
-
-```powershell
+```sh
 python -m pip install -r requirements.txt
 python pc_video_player.py
 ```
 
-Place your own `part*.mp4` files in a sibling `videos/` directory, one level above this project folder. Files are sorted by filename; use zero-padded numbers if you have more than ten parts. Playback starts when the EV3 sends its remote-button signal.
-
-Video assets are not included. Review the existing personal speaker greeting in `main.py` before using the controller for another event.
+Put your own `part*.mp4` files in a `videos` folder next to the project folder. The player sorts them by filename, so use names like `part01.mp4` and `part02.mp4`.
